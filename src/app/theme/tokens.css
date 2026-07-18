@@ -1,0 +1,108 @@
+/*
+ * Design tokens — the single source of truth for theming (README §App Shell:
+ * "The theme covers the whole interface — map tiles and chart included").
+ *
+ * Semantic tokens (--color-surface, --color-text, ...) are what components /
+ * PrimeVue overrides / the map / the chart all consume. They're redefined per
+ * `data-theme`, so nothing downstream needs to know light from dark.
+ *
+ * Raw palette values live only here, once.
+ */
+
+:root {
+  /* Raw palette — referenced only by the semantic tokens below. */
+  --palette-cream-50: #faf8f5;
+  --palette-cream-100: #f3efe8;
+  --palette-cream-200: #eae4d9;
+  --palette-stone-300: #d8d0c2;
+  --palette-stone-500: #a89e8c;
+  --palette-stone-700: #6b6255;
+  --palette-ink-800: #2b2721;
+  --palette-ink-900: #1a1714;
+
+  --palette-charcoal-900: #17161a;
+  --palette-charcoal-800: #201f24;
+  --palette-charcoal-700: #29282e;
+  --palette-charcoal-600: #38363e;
+  --palette-charcoal-400: #6b6874;
+  --palette-fog-200: #b8b5c0;
+  --palette-fog-50: #f2f1f4;
+
+  --palette-orange-400: #ef7f4f;
+  --palette-orange-500: #e8672e;
+  --palette-orange-600: #d5551e;
+
+  --palette-green-500: #4a9c6d;
+  --palette-amber-500: #d99a2b;
+  --palette-red-500: #d94f3c;
+
+  /* Brand accent — same in both themes. */
+  --color-accent: var(--palette-orange-500);
+  --color-accent-strong: var(--palette-orange-600);
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 16%, transparent);
+
+  /* AQI scale — same in both themes; used by map markers, badges, legend. */
+  --color-aqi-good: var(--palette-green-500);
+  --color-aqi-moderate: var(--palette-amber-500);
+  --color-aqi-elevated: var(--palette-orange-500);
+  --color-aqi-unhealthy: var(--palette-red-500);
+
+  /* Connection states. */
+  --color-connection-hq: var(--palette-green-500);
+  --color-connection-poor: var(--palette-red-500);
+  --color-connection-offline: var(--palette-stone-500);
+
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-card: 0 1px 2px rgba(20, 16, 8, 0.04), 0 8px 24px rgba(20, 16, 8, 0.05);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+:root[data-theme='light'] {
+  --color-app-bg: var(--palette-cream-100);
+  --color-surface: var(--palette-cream-50);
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: var(--palette-cream-200);
+  --color-border: var(--palette-stone-300);
+  --color-border-strong: var(--palette-stone-500);
+
+  --color-text: var(--palette-ink-900);
+  --color-text-muted: var(--palette-stone-700);
+  --color-text-faint: var(--palette-stone-500);
+
+  --color-positive: var(--palette-green-500);
+  --color-negative: var(--palette-red-500);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --color-app-bg: var(--palette-charcoal-900);
+  --color-surface: var(--palette-charcoal-800);
+  --color-surface-raised: var(--palette-charcoal-700);
+  --color-surface-sunken: var(--palette-charcoal-600);
+  --color-border: var(--palette-charcoal-600);
+  --color-border-strong: var(--palette-fog-200);
+
+  --color-text: var(--palette-fog-50);
+  --color-text-muted: var(--palette-fog-200);
+  --color-text-faint: var(--palette-charcoal-400);
+
+  --color-positive: var(--palette-green-500);
+  --color-negative: var(--palette-red-500);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}

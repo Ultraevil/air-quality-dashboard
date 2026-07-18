@@ -2,6 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!--
+      A `data-theme` attribute (light|dark) is set on this element before Vue
+      mounts, from localStorage or the OS preference, so there is no
+      light->dark flash on reload. See src/app/theme/applyInitialTheme.ts.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('wised:theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wised · Air Quality Monitoring</title>
   </head>
