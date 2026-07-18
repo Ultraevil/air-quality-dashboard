@@ -1,6 +1,6 @@
 {
   "name": "wised-air-quality-dashboard",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Operator-facing dashboard for Berlin's low-cost air-quality sensor network.",
