@@ -1,7 +1,0 @@
-/*
- * No self-hosted font files are bundled for this take-home. `--font-sans` /
- * `--font-mono` (see tokens.css) list "Inter" / "IBM Plex Mono" first and
- * fall back through the system UI stack, so the app still looks correct
- * without a network font request. Swap in `@font-face` rules here if the
- * brand fonts should be bundled for production.
- */
