@@ -13,6 +13,12 @@ export const router = createRouter({
       component: () => import('@/views/DashboardView.vue'),
       meta: { title: 'Dashboard' },
     },
+    {
+      path: '/sensors',
+      name: 'sensor-list',
+      component: () => import('@/views/SensorListView.vue'),
+      meta: { title: 'Sensor List' },
+    },
   ],
 });
 
