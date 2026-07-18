@@ -7,6 +7,12 @@ export const router = createRouter({
       path: '/',
       redirect: '/dashboard',
     },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/DashboardView.vue'),
+      meta: { title: 'Dashboard' },
+    },
   ],
 });
 
