@@ -67,12 +67,15 @@ export function useLeafletStationMap(options: UseLeafletStationMapOptions) {
 
       if (!marker) {
         marker = L.marker([station.coordinates.lat, station.coordinates.lng], { icon });
-        marker.on('click', () => onSelect(station));
         marker.addTo(map);
         markers.set(station.id, marker);
       } else {
         marker.setIcon(icon);
       }
+
+      marker.off('click');
+      marker.on('click', () => onSelect(station));
+
       marker.setZIndexOffset(isSelected ? 1000 : 0);
       marker.bindPopup(popupHtml(station));
     }

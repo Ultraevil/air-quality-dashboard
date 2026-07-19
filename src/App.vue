@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
 import AppShell from '@/components/layout/AppShell.vue';
-import { useNetworkStore } from '@/stores/network';
 
-// Kick off the whole-network load once, as early as possible, regardless of
-// which page the user lands on first — see `stores/network.ts`.
-const networkStore = useNetworkStore();
-onMounted(() => {
-  void networkStore.loadNetworkOverview();
-});
+// The whole-network load (README §5/§4 — map + KPIs need every station's
+// derived metrics) is no longer kicked off here unconditionally. It's
+// triggered from each view that actually needs it (`DashboardView`,
+// `SensorListView`) via the idempotent `networkStore.loadNetworkOverview()`,
+// so a user landing directly on one route doesn't pay for data the other
+// route needed — see `stores/network.ts`.
 </script>
 
 <template>

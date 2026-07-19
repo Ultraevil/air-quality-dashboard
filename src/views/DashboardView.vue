@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { refDebounced } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 import AppHeader from '@/components/layout/AppHeader.vue';
 import ParticulateChart from '@/features/dashboard/chart/ParticulateChart.vue';
@@ -19,6 +19,10 @@ const selectionStore = useDashboardSelectionStore();
 
 const searchQuery = ref('');
 const debouncedSearchQuery = refDebounced(searchQuery, 150);
+
+onMounted(() => {
+  void networkStore.loadNetworkOverview();
+});
 
 function handleSelect(station: StationWithMetrics): void {
   selectionStore.selectStation(station);
@@ -67,12 +71,19 @@ watch(
 
 .dashboard-view__main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
   gap: var(--space-5);
   align-items: stretch;
 }
 
-@media (max-width: 1024px) {
+/*
+ * Landscape iPad is ~1024px wide — the same width the previous single
+ * breakpoint collapsed at, which meant landscape tablets lost the
+ * side-by-side map/districts layout for no reason (there's plenty of width
+ * for it). Only stack below ~900px, which is comfortably inside the
+ * portrait-iPad (~768px) range this app is required to support.
+ */
+@media (max-width: 900px) {
   .dashboard-view__main {
     grid-template-columns: 1fr;
   }

@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import { stationsApi } from '@/services/api/stationsApi';
 import type { Reading, Station, StationMetrics } from '@/types/station';
 import { mapWithConcurrency } from '@/utils/concurrency';
+import { deriveNetworkAggregates } from '@/utils/deriveNetworkAggregates';
 import { deriveStationMetrics } from '@/utils/deriveStationMetrics';
 
 const READINGS_CONCURRENCY = 16;
@@ -18,6 +19,12 @@ const READINGS_CONCURRENCY = 16;
  * This is a deliberate exception to the "never fetch all pages up front"
  * rule in README §8 — that rule is scoped to the Sensor List *table*, which
  * pages independently via `useStationsListPage` and never touches this store.
+ *
+ * `loadNetworkOverview` is idempotent and is *not* triggered from here or
+ * from the app shell — each view that needs it (`DashboardView` for the map
+ * and KPIs, `SensorListView` for `snapshotNow`-driven connection badges)
+ * triggers it on mount, so a route that doesn't need this data never pays
+ * for it.
  */
 export const useNetworkStore = defineStore('network', () => {
   const stations = ref<Station[]>([]);
@@ -44,6 +51,9 @@ export const useNetworkStore = defineStore('network', () => {
       metrics: metricsByStationId.value.get(station.id) ?? pendingMetrics.value,
     })),
   );
+
+  /** Network-wide KPI aggregates (README §4) — see `deriveNetworkAggregates`. */
+  const aggregates = computed(() => deriveNetworkAggregates(stationsWithMetrics.value));
 
   async function fetchAllStationIdentities(): Promise<Station[]> {
     const all: Station[] = [];
@@ -108,6 +118,7 @@ export const useNetworkStore = defineStore('network', () => {
   return {
     stations,
     stationsWithMetrics,
+    aggregates,
     totalCount,
     snapshotNow,
     status,

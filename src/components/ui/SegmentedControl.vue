@@ -1,28 +1,86 @@
 <script setup lang="ts" generic="TValue extends string">
+import { nextTick, ref } from 'vue';
+
 export interface SegmentedControlOption<TValue> {
   value: TValue;
   label: string;
 }
 
-defineProps<{
+const props = defineProps<{
   modelValue: TValue;
   options: SegmentedControlOption<TValue>[];
   ariaLabel: string;
 }>();
-defineEmits<{ 'update:modelValue': [TValue] }>();
+const emit = defineEmits<{ 'update:modelValue': [TValue] }>();
+
+const optionRefs = ref<(HTMLButtonElement | null)[]>([]);
+
+function setOptionRef(el: Element | null, index: number): void {
+  optionRefs.value[index] = el as HTMLButtonElement | null;
+}
+
+function currentIndex(): number {
+  const index = props.options.findIndex((option) => option.value === props.modelValue);
+  return index === -1 ? 0 : index;
+}
+
+function selectIndex(index: number): void {
+  const option = props.options[index];
+  if (option) emit('update:modelValue', option.value);
+}
+
+async function focusIndex(index: number): Promise<void> {
+  await nextTick();
+  optionRefs.value[index]?.focus();
+}
+
+function moveSelection(offset: number): void {
+  const count = props.options.length;
+  if (count === 0) return;
+  const next = (currentIndex() + offset + count) % count;
+  selectIndex(next);
+  void focusIndex(next);
+}
+
+function handleKeydown(event: KeyboardEvent): void {
+  switch (event.key) {
+    case 'ArrowRight':
+    case 'ArrowDown':
+      event.preventDefault();
+      moveSelection(1);
+      break;
+    case 'ArrowLeft':
+    case 'ArrowUp':
+      event.preventDefault();
+      moveSelection(-1);
+      break;
+    case 'Home':
+      event.preventDefault();
+      selectIndex(0);
+      void focusIndex(0);
+      break;
+    case 'End':
+      event.preventDefault();
+      selectIndex(props.options.length - 1);
+      void focusIndex(props.options.length - 1);
+      break;
+  }
+}
 </script>
 
 <template>
-  <div class="segmented-control" role="radiogroup" :aria-label="ariaLabel">
+  <div class="segmented-control" role="radiogroup" :aria-label="ariaLabel" @keydown="handleKeydown">
     <button
-      v-for="option in options"
+      v-for="(option, index) in options"
       :key="option.value"
+      :ref="(el) => setOptionRef(el as Element | null, index)"
       type="button"
       role="radio"
       :aria-checked="modelValue === option.value"
+      :tabindex="modelValue === option.value ? 0 : -1"
       class="segmented-control__option"
       :class="{ 'segmented-control__option--active': modelValue === option.value }"
-      @click="$emit('update:modelValue', option.value)"
+      @click="selectIndex(index)"
     >
       {{ option.label }}
     </button>

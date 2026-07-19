@@ -19,7 +19,10 @@ const debouncedSearchQuery = refDebounced(searchQuery, 150);
 const { rows, isLoading, error, loadFirstPage, nextPage, previousPage, hasNext, hasPrevious } =
   useStationsListPage(() => snapshotNow.value);
 
-onMounted(loadFirstPage);
+onMounted(() => {
+  void networkStore.loadNetworkOverview();
+  void loadFirstPage();
+});
 </script>
 
 <template>
