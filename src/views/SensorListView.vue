@@ -24,7 +24,7 @@ onMounted(loadFirstPage);
 
 <template>
   <div class="sensor-list-view">
-    <AppHeader title="Sensor List" v-model:search-value="searchQuery" />
+    <AppHeader v-model:search-value="searchQuery" title="Sensor List" />
 
     <BaseCard no-padding>
       <SensorTable :rows="rows" :loading="isLoading" :search-query="debouncedSearchQuery" />

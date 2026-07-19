@@ -39,7 +39,7 @@ watch(
 <template>
   <div class="dashboard-view">
     <div class="dashboard-view__header">
-      <AppHeader title="Berlin · Particulate Monitoring" v-model:search-value="searchQuery" />
+      <AppHeader v-model:search-value="searchQuery" title="Berlin · Particulate Monitoring" />
       <StationSearchDropdown :query="debouncedSearchQuery" :stations="stationsWithMetrics" @select="handleSelect" />
     </div>
 

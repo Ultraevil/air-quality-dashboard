@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TRow extends Record<string, unknown>">
+<script setup lang="ts" generic="TRow extends object">
 import PColumn from 'primevue/column';
 import PDataTable from 'primevue/datatable';
 
