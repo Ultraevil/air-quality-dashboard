@@ -47,6 +47,7 @@ export function useLeafletStationMap(options: UseLeafletStationMapOptions) {
 
   let map: L.Map | null = null;
   let tileLayer: L.TileLayer | null = null;
+  let resizeObserver: ResizeObserver | null = null;
   const markers = new Map<string, L.Marker>();
 
   function popupHtml(station: StationWithMetrics): string {
@@ -108,9 +109,20 @@ export function useLeafletStationMap(options: UseLeafletStationMapOptions) {
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     applyTileLayer();
     renderMarkers();
+
+    // The container can still be mid-layout (e.g. while data is loading and
+    // the flex layout hasn't settled) when the map initializes, so Leaflet
+    // caches an undersized viewport. Watch the container and re-measure
+    // whenever its size actually changes so the map never stays cropped.
+    resizeObserver = new ResizeObserver(() => {
+      map?.invalidateSize();
+    });
+    resizeObserver.observe(container.value);
   });
 
   onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
+    resizeObserver = null;
     map?.remove();
     map = null;
   });
