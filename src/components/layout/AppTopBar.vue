@@ -33,6 +33,9 @@ const navItems = [
   align-items: center;
   gap: var(--space-5);
   padding: var(--space-3) var(--space-5);
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .top-bar__brand {
@@ -46,20 +49,23 @@ const navItems = [
   align-items: center;
   gap: 2px;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   padding: 3px;
   margin-right: auto;
+  width: 100%;
+  background: var(--color-surface-sunken);
 }
 
 .top-bar__nav-link {
   padding: 7px 16px;
-  border-radius: 999px;
+  border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text-muted);
   text-decoration: none;
   transition: background-color 0.15s ease, color 0.15s ease;
+  margin: 2px;
 }
 
 .top-bar__nav-link:hover {

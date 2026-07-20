@@ -23,8 +23,9 @@ const { isDark } = storeToRefs(themeStore);
 .theme-toggle {
   width: 40px;
   height: 40px;
-  border-radius: 999px;
-  background: var(--color-surface-raised);
+  border-radius: 12px;
+  background: var(--color-surface-raised)!important;
   border: 1px solid var(--color-border);
+  color: var(--color-theme-toggle)!important;
 }
 </style>

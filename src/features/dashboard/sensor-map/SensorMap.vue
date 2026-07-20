@@ -47,7 +47,7 @@ useLeafletStationMap({
     <div class="sensor-map-card__header">
       <div>
         <h2 class="sensor-map-card__title">Sensor Map</h2>
-        <p class="sensor-map-card__subtitle">Particulate readings across Berlin</p>
+        <p class="sensor-map-card__subtitle">Real-time particulate readings across Berlin</p>
       </div>
       <SegmentedControl v-model="mapPollutant" :options="POLLUTANT_OPTIONS" aria-label="Map pollutant" />
     </div>
@@ -66,7 +66,15 @@ useLeafletStationMap({
 .sensor-map-card {
   display: flex;
   flex-direction: column;
+  height: 100%;
   overflow: hidden;
+}
+
+.sensor-map-card :deep(.base-card__body) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
 .sensor-map-card__header {
@@ -83,7 +91,7 @@ useLeafletStationMap({
 
 .sensor-map-card__subtitle {
   font-size: 12px;
-  color: var(--color-text-muted);
+  color: var(--color-text-faint);
   margin-top: 2px;
 }
 
@@ -91,6 +99,12 @@ useLeafletStationMap({
   position: relative;
   flex: 1;
   min-height: 420px;
+}
+
+@media (max-width: 1024px) {
+  .sensor-map-card__map-wrap {
+    min-height: 320px;
+  }
 }
 
 .sensor-map-card__map {

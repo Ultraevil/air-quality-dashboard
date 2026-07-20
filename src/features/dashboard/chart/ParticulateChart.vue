@@ -32,7 +32,7 @@ const showPm10 = ref(true);
 const showPm25 = ref(true);
 
 const CSS_VAR_NAMES = {
-  pm10: '--color-border-strong',
+  pm10: '--color-border',
   pm25: '--color-accent',
   axisLine: '--color-border',
   axisLabel: '--color-text-faint',
@@ -90,7 +90,6 @@ const subtitle = computed(() => {
   return `${selectedStation.value.district} · ${selectedStation.value.location} · ${rangeLabel} · µg/m³`;
 });
 </script>
-
 <template>
   <BaseCard class="particulate-chart">
     <div class="particulate-chart__header">

@@ -34,7 +34,7 @@ const columns: BaseTableColumn<SensorTableRow>[] = [
   { field: 'pm25', header: 'PM2.5', sortable: true, width: '90px' },
   { field: 'pm10', header: 'PM10', sortable: true, width: '90px' },
   { field: 'aqi', header: 'AQI', sortable: true, width: '120px' },
-  { field: 'connection', header: 'Connection', width: '140px' },
+  { field: 'connection', header: 'Connection', width: '160px' },
 ];
 
 // The mock API has no server-side search (README §Data lists no `q` param),

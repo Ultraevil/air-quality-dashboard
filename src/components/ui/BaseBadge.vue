@@ -35,19 +35,27 @@ const toneColorVar = computed(
     <span class="base-badge__dot" aria-hidden="true" />
     <slot />
   </span>
-  <PTag v-else class="base-badge" :style="{ '--tone-color': toneColorVar }">
+  <PTag v-else-if="tone && tone !== 'neutral'" class="base-badge base-badge--tone" :style="{ '--tone-color': toneColorVar }">
+    <slot />
+  </PTag>
+  <PTag v-else class="base-badge " :style="{ '--tone-color': toneColorVar }">
     <slot />
   </PTag>
 </template>
 
 <style scoped>
 .base-badge {
-  --p-tag-background: color-mix(in srgb, var(--tone-color) 16%, transparent);
-  --p-tag-color: var(--tone-color);
+  background: color-mix(in srgb, var(--tone-color) 16%, transparent);
   font-weight: 600;
   font-size: 12px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   border: none;
+  color: var(--tone-color);
+  padding: 3px 14px 5px;
+}
+
+:root[data-theme='dark'] .base-badge--tone {
+  background:  color-mix(in srgb, var(--tone-color) 16%, var(--palette-cream-150));
 }
 
 .base-badge--dot {
@@ -55,8 +63,8 @@ const toneColorVar = computed(
   align-items: center;
   gap: 6px;
   color: var(--tone-color);
-  font-weight: 500;
   font-size: 12px;
+  background: none;
 }
 
 .base-badge__dot {

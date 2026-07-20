@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 
 import AqiBadge from '@/components/ui/AqiBadge.vue';
+import BaseBadge from '@/components/ui/BaseBadge.vue';
 import ConnectionBadge from '@/components/ui/ConnectionBadge.vue';
 import Sparkline from '@/components/ui/Sparkline.vue';
 import type { StationWithMetrics } from '@/types/station';
@@ -15,7 +16,7 @@ const props = defineProps<{
 
 defineEmits<{ select: []; toggleTracked: [] }>();
 
-const sparklineTone = computed(() => {
+const aqiTone = computed(() => {
   const level = props.station.metrics.aqi;
   return level ? `var(--color-aqi-${level})` : 'var(--color-text-faint)';
 });
@@ -52,17 +53,20 @@ const sparklineTone = computed(() => {
 
     <div class="district-row__body">
       <div class="district-row__pm25">
-        <span class="district-row__pm25-value numeric">{{ formatConcentrationValue(station.metrics.pm25) }}</span>
+        <span class="district-row__pm25-value numeric" :style="{ color: aqiTone }">{{
+            formatConcentrationValue(station.metrics.pm25)
+          }}</span>
         <div class="district-row__pm25-meta">
-          <span class="district-row__unit">µg/m³ PM2.5</span>
-          <AqiBadge :level="station.metrics.aqi" />
+          <span>µg/m³</span>
+          <span>PM2.5</span>
         </div>
       </div>
-      <Sparkline :values="station.metrics.sparkline" :tone="sparklineTone" />
+      <Sparkline :values="station.metrics.sparkline" :tone="aqiTone" />
     </div>
 
     <div class="district-row__footer">
-      <span>PM10 {{ formatConcentrationValue(station.metrics.pm10) }}</span>
+      <AqiBadge :level="station.metrics.aqi" />
+      <BaseBadge tone="neutral">PM10 {{ formatConcentrationValue(station.metrics.pm10) }}</BaseBadge>
       <ConnectionBadge :state="station.metrics.connection" :stability-pct="station.metrics.stabilityPct" />
     </div>
   </div>
@@ -73,19 +77,19 @@ const sparklineTone = computed(() => {
   width: 100%;
   text-align: left;
   background: var(--color-surface-sunken);
-  border: 1px solid transparent;
   border-radius: var(--radius-md);
+  border: none;
   padding: var(--space-3) var(--space-4);
   cursor: pointer;
   font: inherit;
   color: inherit;
   transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease;
+      border-color 0.15s ease,
+      background-color 0.15s ease;
 }
 
 .district-row:hover {
-  border-color: var(--color-border-strong);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
 }
 
 .district-row:focus-visible {
@@ -94,8 +98,8 @@ const sparklineTone = computed(() => {
 }
 
 .district-row--selected {
-  background: var(--color-surface-raised);
-  border-color: var(--color-accent);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
 }
 
 .district-row__top {
@@ -142,27 +146,35 @@ const sparklineTone = computed(() => {
   margin-top: var(--space-2);
 }
 
+.district-row__pm25 {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
 .district-row__pm25-value {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
+  line-height: 1;
+  margin-bottom: 16px;
 }
 
 .district-row__pm25-meta {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.district-row__unit {
-  font-size: 10px;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+  line-height: 1.1;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--color-text-faint);
+  gap: 2px;
 }
 
 .district-row__footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-3);
   margin-top: var(--space-3);
   font-size: 12px;
   color: var(--color-text-muted);

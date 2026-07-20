@@ -71,7 +71,7 @@ watch(
 
 .dashboard-view__main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  grid-template-columns: minmax(0, 1fr) 500px;
   gap: var(--space-5);
   align-items: stretch;
 }

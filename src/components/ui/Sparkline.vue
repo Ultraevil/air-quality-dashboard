@@ -27,27 +27,70 @@ const points = computed(() => {
     .join(' ');
 });
 
+const areaPoints = computed(() => {
+  if (!points.value) return '';
+
+  return [
+    `0,${props.height}`,
+    points.value,
+    `${props.width},${props.height}`,
+  ].join(' ');
+});
+
 const lastPoint = computed(() => {
   if (!points.value) return null;
-  const last = points.value.split(' ').at(-1);
+
+  const allPoints = points.value.split(' ');
+  const last = allPoints[allPoints.length - 1];
+
   if (!last) return null;
+
   const [x, y] = last.split(',').map(Number);
+
   return { x, y };
 });
+
+const gradientId = `spark-gradient-${Math.random().toString(36).slice(2)}`;
 </script>
 
 <template>
   <svg
-    v-if="points"
-    :width="width"
-    :height="height"
-    :viewBox="`0 0 ${width} ${height}`"
-    class="sparkline"
-    role="img"
-    aria-hidden="true"
+      v-if="points"
+      :width="width"
+      :height="height"
+      :viewBox="`0 0 ${width} ${height}`"
+      class="sparkline"
+      role="img"
+      aria-hidden="true"
   >
-    <polyline :points="points" fill="none" :stroke="tone" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-    <circle v-if="lastPoint" :cx="lastPoint.x" :cy="lastPoint.y" r="2.5" :fill="tone" />
+    <defs>
+      <linearGradient :id="gradientId" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" :stop-color="tone" stop-opacity="0.28" />
+        <stop offset="100%" :stop-color="tone" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    <polygon
+        :points="areaPoints"
+        :fill="`url(#${gradientId})`"
+    />
+
+    <polyline
+        :points="points"
+        fill="none"
+        :stroke="tone"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+
+    <circle
+        v-if="lastPoint"
+        :cx="lastPoint.x"
+        :cy="lastPoint.y"
+        r="2.5"
+        :fill="tone"
+    />
   </svg>
 </template>
 

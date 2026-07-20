@@ -91,7 +91,7 @@ function handleKeydown(event: KeyboardEvent): void {
 .segmented-control {
   display: inline-flex;
   background: var(--color-surface-sunken);
-  border-radius: 999px;
+  border-radius: 12px;
   padding: 3px;
   gap: 2px;
 }
@@ -103,7 +103,7 @@ function handleKeydown(event: KeyboardEvent): void {
   font-size: 12px;
   font-weight: 600;
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: 12px;
   cursor: pointer;
 }
 

@@ -92,7 +92,7 @@ const trackedStations = computed(() => {
 
 .districts-panel__subtitle {
   font-size: 12px;
-  color: var(--color-text-muted);
+  color: var(--color-text-faint);
   margin-top: 2px;
 }
 

@@ -13,19 +13,21 @@
   /* Raw palette — referenced only by the semantic tokens below. */
   --palette-cream-50: #faf8f5;
   --palette-cream-100: #f3efe8;
-  --palette-cream-200: #eae4d9;
+  --palette-cream-150: #e7e4e0;
+  --palette-cream-200: #f4f2ee;
   --palette-stone-300: #d8d0c2;
   --palette-stone-500: #a89e8c;
   --palette-stone-700: #6b6255;
   --palette-ink-800: #2b2721;
   --palette-ink-900: #1a1714;
 
-  --palette-charcoal-900: #17161a;
-  --palette-charcoal-800: #201f24;
-  --palette-charcoal-700: #29282e;
+  --palette-charcoal-900: #16150f;
+  --palette-charcoal-800: #211f19;
+  --palette-charcoal-700: #322f27;
   --palette-charcoal-600: #38363e;
   --palette-charcoal-400: #6b6874;
   --palette-fog-200: #b8b5c0;
+  --palette-fog-100: #efece7;
   --palette-fog-50: #f2f1f4;
 
   --palette-orange-400: #ef7f4f;
@@ -42,7 +44,7 @@
   --color-accent-soft: color-mix(in srgb, var(--color-accent) 16%, transparent);
 
   /* AQI scale — same in both themes; used by map markers, badges, legend. */
-  --color-aqi-good: var(--palette-green-500);
+  --color-aqi-good: var(--palette-orange-500);
   --color-aqi-moderate: var(--palette-amber-500);
   --color-aqi-elevated: var(--palette-orange-500);
   --color-aqi-unhealthy: var(--palette-red-500);
@@ -78,7 +80,7 @@
 }
 
 :root[data-theme='light'] {
-  --color-app-bg: var(--palette-cream-100);
+  --color-app-bg: var(--palette-cream-150);
   --color-surface: var(--palette-cream-50);
   --color-surface-raised: #ffffff;
   --color-surface-sunken: var(--palette-cream-200);
@@ -93,13 +95,14 @@
   --color-negative: var(--palette-red-500);
 
   color-scheme: light;
+  --color-theme-toggle: var(--palette-ink-900);
 }
 
 :root[data-theme='dark'] {
   --color-app-bg: var(--palette-charcoal-900);
   --color-surface: var(--palette-charcoal-800);
   --color-surface-raised: var(--palette-charcoal-700);
-  --color-surface-sunken: var(--palette-charcoal-600);
+  --color-surface-sunken: var(--palette-ink-800);
   --color-border: var(--palette-charcoal-600);
   --color-border-strong: var(--palette-fog-200);
 
@@ -112,4 +115,5 @@
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.35);
   color-scheme: dark;
+
 }
