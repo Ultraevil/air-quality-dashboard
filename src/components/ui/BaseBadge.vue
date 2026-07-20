@@ -35,7 +35,7 @@ const toneColorVar = computed(
     <span class="base-badge__dot" aria-hidden="true" />
     <slot />
   </span>
-  <PTag v-else-if="tone && tone !== 'neutral'" class="base-badge base-badge--tone" :style="{ '--tone-color': toneColorVar }">
+  <PTag v-else-if="tone && (tone === 'good' || tone === 'moderate' || tone === 'elevated')" class="base-badge base-badge--tone" :style="{ '--tone-color': toneColorVar }">
     <slot />
   </PTag>
   <PTag v-else class="base-badge " :style="{ '--tone-color': toneColorVar }">

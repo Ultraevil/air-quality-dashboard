@@ -28,9 +28,10 @@ next with more time.
   `useStationsListPage`.
 - **KPI deltas.** The mockup shows a delta pill on each KPI tile (e.g. "+6").
   The API is an explicit fixed snapshot with no history endpoint, so there's
-  nothing genuine to diff against — I omitted the deltas rather than
-  fabricate them. `BaseTile` supports an optional delta prop for whenever
-  real historical data exists.
+  nothing genuine to diff against. Rather than omit the pill outright, it's
+  reproduced as static values matching the mockup (`KpiTiles.vue`) purely for
+  visual parity — `BaseTile` exposes a `#delta` slot to wire in real figures
+  once a history endpoint exists.
 - **Districts watchlist.** There's no "tracked stations" concept in the API,
   so it's local UI state (`stores/watchlist.ts`), persisted like the theme.
   It's seeded with one station per district the first time the app runs, and

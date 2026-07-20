@@ -2,19 +2,23 @@
 import BaseCard from './BaseCard.vue';
 
 withDefaults(
-  defineProps<{
-    icon: string;
-    iconTone?: 'accent' | 'good' | 'elevated';
-  }>(),
-  { iconTone: 'accent' },
+    defineProps<{
+      /** Omit when providing a custom `#icon` slot (e.g. an inline SVG). */
+      icon?: string;
+      iconTone?: 'accent' | 'good' | 'positive' | 'elevated';
+    }>(),
+    { icon: '', iconTone: 'accent' },
 );
 </script>
 
 <template>
   <BaseCard class="kpi-tile">
-    <span class="kpi-tile__icon" :class="`kpi-tile__icon--${iconTone}`">
-      <i :class="icon" aria-hidden="true" />
-    </span>
+    <div class="kpi-tile__top">
+      <span class="kpi-tile__icon" :class="`kpi-tile__icon--${iconTone}`">
+        <slot name="icon"><i :class="icon" aria-hidden="true" /></slot>
+      </span>
+      <slot name="delta" />
+    </div>
     <p class="kpi-tile__value numeric">
       <slot name="value" />
     </p>
@@ -32,6 +36,13 @@ withDefaults(
 .kpi-tile :deep(.base-card__body) {
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kpi-tile__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
 }
 
@@ -53,6 +64,11 @@ withDefaults(
 .kpi-tile__icon--good {
   background: color-mix(in srgb, var(--color-aqi-good) 16%, transparent);
   color: var(--color-aqi-good);
+}
+
+.kpi-tile__icon--positive {
+  background: color-mix(in srgb, var(--color-positive) 16%, transparent);
+  color: var(--color-positive);
 }
 
 .kpi-tile__icon--elevated {
