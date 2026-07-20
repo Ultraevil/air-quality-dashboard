@@ -38,15 +38,19 @@ const matches = computed(() => {
 
 <style scoped>
 .search-dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 20;
   list-style: none;
-  margin: var(--space-2) 0 0;
+  margin: 0;
   padding: var(--space-2);
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
+  width: 320px;
   max-width: 320px;
-  margin-left: auto;
 }
 
 .search-dropdown__item {
@@ -80,8 +84,18 @@ const matches = computed(() => {
 }
 
 .search-dropdown__empty {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 20;
+  width: 320px;
   max-width: 320px;
-  margin: var(--space-2) 0 0 auto;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   font-size: 12px;
   color: var(--color-text-muted);
   text-align: right;

@@ -49,7 +49,7 @@ useLeafletStationMap({
         <h2 class="sensor-map-card__title">Sensor Map</h2>
         <p class="sensor-map-card__subtitle">Real-time particulate readings across Berlin</p>
       </div>
-      <SegmentedControl v-model="mapPollutant" :options="POLLUTANT_OPTIONS" aria-label="Map pollutant" />
+      <SegmentedControl v-model="mapPollutant" :options="POLLUTANT_OPTIONS" ariaLabel="Map pollutant" />
     </div>
 
     <div class="sensor-map-card__map-wrap">
