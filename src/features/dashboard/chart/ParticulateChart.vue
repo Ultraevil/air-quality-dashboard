@@ -100,7 +100,7 @@ const subtitle = computed(() => {
       <div class="particulate-chart__controls">
         <ChartLegendToggle v-model="showPm10" label="PM10" shape="bar" :color="colorTokens.pm10" />
         <ChartLegendToggle v-model="showPm25" label="PM2.5" shape="line" :color="colorTokens.pm25" />
-        <SegmentedControl v-model="chartRange" :options="RANGE_OPTIONS" ariaLabel="Chart range" />
+        <SegmentedControl v-model="chartRange" :options="RANGE_OPTIONS" aria-label="Chart range" />
       </div>
     </div>
 
