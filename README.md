@@ -7,6 +7,11 @@ deployed across Berlin: two pages behind a shared app shell, in a light and a
 dark theme. Each section below describes the purpose and expected features of one
 UI component; the mockups are the reference for the rest.
 
+## Live Demo
+
+Demo Video:
+https://www.loom.com/share/7c40f6f0db254ffa85c297fc5cc28e39
+
 ## Constraints
 
 The following technologies are required. Any additional libraries are at your

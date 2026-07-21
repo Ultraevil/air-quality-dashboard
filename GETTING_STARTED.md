@@ -6,7 +6,6 @@ API in `mock-data/` — see the brief in [`README.md`](README.md).
 ## Run it
 
 ```bash
-cd frontend
 npm install
 
 # Terminal 1 — the mock API on http://localhost:8787

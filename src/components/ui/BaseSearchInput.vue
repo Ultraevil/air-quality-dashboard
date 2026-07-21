@@ -35,7 +35,7 @@ defineEmits<{ 'update:modelValue': [string] }>();
 }
 
 .base-search__input {
-  border-radius: 999px;
+  border-radius: 12px;
   padding-left: 2.25rem;
 }
 </style>
